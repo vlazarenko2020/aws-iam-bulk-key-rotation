@@ -1,0 +1,112 @@
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+cd /home/jdoe/DEVELOPMENT/AWS-IAM-Bulk-Key-Rotation
+
+
+
+vi step-1-delete-inactive-create-key.sh
+
+# PROFILE='ARacconut2Admin'
+PROFILE='ARacconut1Admin'
+
+
+./step-1-delete-inactive-create-key.sh s-kafka-connect
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+
+$ 
+$ 
+$ pwd
+/home/jdoe/DEVELOPMENT/AWS-IAM-Bulk-Key-Rotation
+$ 
+$ 
+$ 
+$ 
+$ 
+$ ./step-1-delete-inactive-create-key.sh s-kafka-connect
+
+-- AKIAFAKEACCESSKEYNIF - Status: Inactive - CreateDate: 2025-05-08T14:32:24+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2025-08-13T23:00:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+-- AKIAFAKEACCESSKEY6UY - Status: Active - CreateDate: 2025-08-14T20:27:19+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-02-13T00:01:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+..Inactive key: 1
+
+Is it OK to delete inactive key (y/n)  y
+
+..Deleting Inactive AWS Key: AKIAFAKEACCESSKEYNIF (Inactive).
+
+
+..Inactive AWS Key: AKIAFAKEACCESSKEYNIF (Inactive). was deleted.
+
+
+-- AKIAFAKEACCESSKEY6UY - Status: Active - CreateDate: 2025-08-14T20:27:19+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-02-13T00:01:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+..Inactive key: 1
+
+
+..Creating a new AWS Key for user s-kafka-connect.
+{
+    "AccessKey": {
+        "UserName": "s-kafka-connect",
+        "AccessKeyId": "AKIAFAKEACCESSKEYTN0",
+        "Status": "Active",
+        "SecretAccessKey": "FAKESECRETACCESSKEYKXQ1CjjUkPNdYc31nUUiQ",
+        "CreateDate": "2026-02-13T16:20:21+00:00"
+    }
+}
+
+-- AKIAFAKEACCESSKEY6UY - Status: Active - CreateDate: 2025-08-14T20:27:19+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-02-13T00:01:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+-- AKIAFAKEACCESSKEYTN0 - Status: Active - CreateDate: 2026-02-13T16:20:21+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "ServiceName": "N/A",
+        "Region": "N/A"
+    }
+}
+
+..Inactive key: 1
+
+$ 
+$ 
+$ 
+$ 

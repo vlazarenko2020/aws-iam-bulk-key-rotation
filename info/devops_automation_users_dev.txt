@@ -1,0 +1,7 @@
+# -- CURRENT DEVOPS-DEV
+s-jenkins-ci-dev|ARacconut2Admin
+s-terraform-deploy-dev|ARacconut2Admin
+s-ansible-automation-dev|ARacconut2Admin
+s-github-actions-dev|ARacconut2Admin
+s-gitlab-runner-dev|ARacconut2Admin
+# -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)

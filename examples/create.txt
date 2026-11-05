@@ -1,0 +1,17 @@
+COMMAND
+    ./main-bulk-rotate-iam-keys.sh info/test_ALL.txt create
+
+WHAT IT DOES
+    Step 1 of the rotation: adds a second access key.
+    Works only when the user has exactly 1 key (an IAM user can have at most 2).
+
+EXPECTED RESULT (per user)
+    The keys are listed first (same output as "list"), then:
+      - exactly 1 key:  asks "Is it OK to create (add) a New Key (y/n)"
+                          y          -> a new key is created; the script prints the
+                                        AWS JSON and one line "<AccessKeyId>,<SecretAccessKey>"
+                          anything else -> "Nothing was created ... Moving on."
+      - 0 keys:         "The user has no keys. Nothing to rotate ..."
+      - 2 keys:         "The user has two keys ... Cannot add a third key."
+    The secret is shown ONCE, only in the terminal; it is never written to a file.
+    Copy it to the application right away. Run "list" afterwards: 2 keys.

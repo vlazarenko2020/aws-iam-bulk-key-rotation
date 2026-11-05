@@ -1,0 +1,15 @@
+COMMAND
+    ./main-bulk-rotate-iam-keys.sh info/test_ALL.txt delete
+
+WHAT IT DOES
+    Step 5 of the rotation: deletes the OLDEST Inactive key of a user.
+    A second Inactive key (if any) is kept, so it can still be re-activated.
+
+EXPECTED RESULT (per user)
+    The keys are listed first (same output as "list"), then:
+      - at least 1 Inactive key: shows the oldest Inactive key and asks
+                        "Is it OK to delete the oldest Inactive Key (y/n)"
+                          y          -> that one key is deleted
+                          anything else -> "Nothing was deleted ... Moving on."
+      - no Inactive key: "The user has no Inactive key. Nothing to delete."
+    Run "list" afterwards: the deleted key is gone.

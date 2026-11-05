@@ -1,0 +1,28 @@
+# Generated working files (script writes here; keep the folder itself)
+tmp/*
+!tmp/.gitkeep
+
+# Output of `aws iam create-access-key` and other JSON dumps (may contain secrets)
+*.json
+
+# Real credentials / local config
+*.pem
+*.key
+.env
+.aws/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local Claude Code notes (not for the public repo)
+CLAUDE.md
+
+# Personal to-do list (not for the public repo)
+_TODO.txt
+
+# Full sample terminal transcripts (fake keys, but they look like real AWS keys
+# and trigger GitHub push protection). Kept locally only.
+examples-local/

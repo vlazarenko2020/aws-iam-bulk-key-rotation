@@ -1,0 +1,156 @@
+
+---------------------------------------------------------------------------------------
+Managing access keys for IAM users - AWS Identity and Access Management
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey_CLIAPI
+
+
+Updating access keys (AWS CLI)
+
+You can update access keys from the AWS Command Line Interface.
+
+To update access keys without interrupting your applications (AWS CLI)
+
+While the first access key is still active, create a second access key, which is active by default. 
+Run the following command:
+
+aws iam create-access-key
+
+
+At this point, the user has two active access keys.
+Update all applications and tools to use the new access key.
+Determine whether the first access key is still in use by using this command:
+
+aws iam get-access-key-last-used --access-key-id <value>
+
+
+One approach is to wait several days and then check the old access key for any use before proceeding.
+Even if step Step 3 indicates no use of the old key, we recommend that you do not immediately delete the first access key. 
+Instead, change the state of the first access key to Inactive using this command:
+
+aws iam update-access-key
+aws iam update-access-key --access-key-id <Access_Key_ID> --status Inactive --user-name <IAM_username>
+
+Use only the new access key to confirm that your applications are working. 
+Any applications and tools that still use the original access key will stop working at this point 
+because they no longer have access to AWS resources. 
+If you find such an application or tool, you can switch its state back to Active to reactivate the first access key. 
+Then return to step Step 2 and update this application to use the new key.
+
+After you wait some period of time to ensure that all applications and tools have been updated, you can delete the first access key with this command:
+
+aws iam delete-access-key
+
+---------------------------------------------------------------------------------------
+
+
+
+
+PROFILE='ARacconut1Admin'
+
+
+aws iam list-users
+
+aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE}
+
+
+aws iam update-access-key \
+    --access-key-id <Access_Key_ID> \
+    --status Inactive \
+    --user-name <IAM_username>
+    --profile ${PROFILE}
+
+-- Check is the key was deactivated
+aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE}
+
+aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE} \
+    | jq -r '.AccessKeyMetadata[] | .AccessKeyId + " " + .Status'
+
+
+aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE} \
+    | jq -r '.AccessKeyMetadata[] | "\(.AccessKeyId) \(.Status)"'
+
+
+
+
+aws iam get-access-key-last-used \
+    --access-key-id <value>
+    --profile ${PROFILE}
+
+aws iam update-access-key \
+    --access-key-id <Access_Key_ID> \
+    --status Inactive \
+    --user-name <IAM_username> \
+    --profile ${PROFILE}
+
+
+
+
+$ 
+$ 
+$ aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE}
+{
+    "AccessKeyMetadata": [
+        {
+            "UserName": "john.doe@example.com",
+            "AccessKeyId": "AKIAFAKEACCESSKEYVF0",
+            "Status": "Active",
+            "CreateDate": "2019-09-13T16:37:07+00:00"
+        },
+        {
+            "UserName": "john.doe@example.com",
+            "AccessKeyId": "AKIAFAKEACCESSKEYQZU",
+            "Status": "Active",
+            "CreateDate": "2025-05-10T21:56:33+00:00"
+        }
+    ]
+}
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE} \
+    | jq -r '.AccessKeyMetadata[] | .AccessKeyId + " " + .Status'
+
+AKIAFAKEACCESSKEYVF0 Active
+AKIAFAKEACCESSKEYQZU Active
+
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ aws iam list-access-keys \
+    --user-name john.doe@example.com \
+    --profile ${PROFILE} \
+    | jq -r '.AccessKeyMetadata[] | "\(.AccessKeyId) \(.Status)"'
+
+AKIAFAKEACCESSKEYVF0 Active
+AKIAFAKEACCESSKEYQZU Active
+
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 

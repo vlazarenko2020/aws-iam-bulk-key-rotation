@@ -1,0 +1,82 @@
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+cd /home/jdoe/DEVELOPMENT/AWS-IAM-Bulk-Key-Rotation
+
+
+
+vi step-2-inactivate-oldest-key.sh
+
+# PROFILE='ARacconut2Admin'
+PROFILE='ARacconut1Admin'
+
+
+./step-2-inactivate-oldest-key.sh s-kafka-connect
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+
+$ 
+$ 
+$ pwd
+/home/jdoe/DEVELOPMENT/AWS-IAM-Bulk-Key-Rotation
+$ 
+$ 
+$ 
+$ ./step-2-inactivate-oldest-key.sh s-kafka-connect
+
+-- AKIAFAKEACCESSKEYNIF - Status: Active - CreateDate: 2025-05-08T14:32:24+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2025-08-13T23:00:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+-- AKIAFAKEACCESSKEY6UY - Status: Active - CreateDate: 2025-08-14T20:27:19+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-02-13T00:01:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+..Inactive key: 
+
+
+..The oldest Active AWS Key: AKIAFAKEACCESSKEYNIF (Active).
+
+Is it OK to inactive the oldest Active Key (y/n)  y
+
+-- AKIAFAKEACCESSKEYNIF - Status: Inactive - CreateDate: 2025-05-08T14:32:24+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2025-08-13T23:00:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+-- AKIAFAKEACCESSKEY6UY - Status: Active - CreateDate: 2025-08-14T20:27:19+00:00
+{
+    "UserName": "s-kafka-connect",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-02-13T00:01:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+..Inactive key: 1
+
+$ 
+$ 

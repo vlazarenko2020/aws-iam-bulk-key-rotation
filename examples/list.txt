@@ -1,0 +1,12 @@
+COMMAND
+    ./main-bulk-rotate-iam-keys.sh info/test_ALL.txt list
+
+WHAT IT DOES
+    Read-only. Changes nothing and asks nothing.
+
+EXPECTED RESULT
+    For every user in the info file (comment lines are skipped):
+      - a banner "Listing existing keys step." with the IAM username and AWS CLI profile
+      - one line per access key: key ID, Status (Active/Inactive), CreateDate
+      - the "get-access-key-last-used" JSON for that key (date, service, region)
+      - a summary: "..Active key: N" and "..Inactive key: N"

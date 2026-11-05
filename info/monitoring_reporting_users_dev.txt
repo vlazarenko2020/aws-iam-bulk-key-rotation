@@ -1,0 +1,7 @@
+# -- CURRENT MONITORING-DEV
+s-grafana-metrics-dev|ARacconut2Admin
+s-prometheus-exporter-dev|ARacconut2Admin
+s-datadog-agent-dev|ARacconut2Admin
+s-tableau-refresh-dev|ARacconut2Admin
+s-powerbi-gateway-dev|ARacconut2Admin
+# -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)

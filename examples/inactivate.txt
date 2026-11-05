@@ -1,0 +1,19 @@
+COMMAND
+    ./main-bulk-rotate-iam-keys.sh info/test_ALL.txt inactivate
+
+WHAT IT DOES
+    Step 3 of the rotation: inactivates the OLDEST key of a user.
+    Works only when the user has 2 Active keys.
+
+EXPECTED RESULT (per user)
+    The keys are listed first (same output as "list"), then:
+      - 2 Active keys:  shows the oldest Active key and asks
+                        "Is it OK to inactivate the oldest Active Key (y/n)"
+                          y          -> the key is set to Inactive
+                          anything else -> "Nothing was inactivated ... Moving on."
+      - 0 keys:         "The user has no keys. Nothing to inactivate."
+      - no Active key:  "The user has no Active keys (N Inactive). Nothing to inactivate."
+      - only 1 key:     "You have only one key. Nothing to inactivate."
+      - 1 Active + 1 Inactive: message that only 2 Active keys can be inactivated
+                        (delete the Inactive key first if needed).
+    Run "list" afterwards: it should report 1 Active and 1 Inactive key.

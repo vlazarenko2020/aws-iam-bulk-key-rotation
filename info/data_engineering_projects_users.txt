@@ -1,0 +1,7 @@
+# -- CURRENT DATA-ENGINEERING
+s-airflow-scheduler|ARacconut1Admin
+s-dbt-runner|ARacconut1Admin
+s-spark-etl|ARacconut1Admin
+s-kafka-connect|ARacconut1Admin
+s-glue-crawler|ARacconut1Admin
+# -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)

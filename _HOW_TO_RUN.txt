@@ -1,0 +1,140 @@
+
+
+cd /home/jdoe/DEVELOPMENT/AWS-IAM-Bulk-Key-Rotation
+
+
+cat info/test_ALL.txt
+# -- CURRENT TEST
+s-test-app-backup|ARacconut1Admin
+s-test-app-reports|ARacconut1Admin
+# -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)
+
+
+
+Other sample lists in info/ (all fake):
+	*_users.txt      profile ARacconut1Admin
+	*_users_dev.txt  "-dev" usernames, profile ARacconut2Admin
+	test_ALL.txt     the two test users above
+
+
+./main-bulk-rotate-iam-keys.sh
+ERROR: expected 2 arguments, got 0.
+
+Usage: main-bulk-rotate-iam-keys.sh <info-file> <action>
+
+  <info-file>  File with one "iam_username|aws_cli_profile" per line
+  <action>     list | inactivate | delete | create
+
+
+
+Typical rotation, one action at a time (see "Rotation order" in README.md).
+Each change asks "(y/n)" first; type y to do it, anything else skips the user.
+
+./main-bulk-rotate-iam-keys.sh info/test_ALL.txt list         # only shows keys, changes nothing
+
+./main-bulk-rotate-iam-keys.sh info/test_ALL.txt create       # user has 1 key -> adds a 2nd, prints "ID,Secret"
+	(copy the secret now: it is shown once and never saved to a file)
+	(update the application with the new key, then continue)
+
+./main-bulk-rotate-iam-keys.sh info/test_ALL.txt inactivate   # user has 2 Active keys -> inactivates the oldest
+	(verify with "list" that the application still works: check Last Used)
+
+./main-bulk-rotate-iam-keys.sh info/test_ALL.txt delete       # deletes the oldest Inactive key only
+
+The script can be started from any directory; the info-file path is relative
+to where you start it (or absolute).
+
+
+See examples/ : one file per action with the command and the expected result
+(list.txt, inactivate.txt, delete.txt, create.txt).
+
+
+
+
+
+
+
+
+
+
+$
+$
+$ ./main-bulk-rotate-iam-keys.sh info/test_ALL.txt list
+
+Info-CSV-File (info/test_ALL.txt) exists.
+
+----- Line from info file: # -- CURRENT TEST
+----- Skipping commented line.
+----- Line from info file: s-test-app-backup|ARacconut1Admin
+----- Line from info file: s-test-app-reports|ARacconut1Admin
+----- Line from info file: # -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)
+----- Skipping commented line.
+List many keys for users from info-csv-file.
+
+-----------------------------------------------------------------------
+----- Listing existing keys step.
+----- Line from info file: s-test-app-backup|ARacconut1Admin
+-----------------------------------------------------------------------
+----- IAM username:       s-test-app-backup
+-----    AWS CLI profile: ARacconut1Admin
+
+-- AKIAFAKEACCESSKEYYDW - Status: Active - CreateDate: 2026-08-06T18:50:38+00:00
+{
+    "UserName": "s-test-app-backup",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-10-26T14:45:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+-- AKIAFAKEACCESSKEY44S - Status: Inactive - CreateDate: 2026-02-13T17:47:57+00:00
+{
+    "UserName": "s-test-app-backup",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-08-06T18:54:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+..Active key:   1
+..Inactive key: 1
+
+
+-----------------------------------------------------------------------
+----- Listing existing keys step.
+----- Line from info file: s-test-app-reports|ARacconut1Admin
+-----------------------------------------------------------------------
+----- IAM username:       s-test-app-reports
+-----    AWS CLI profile: ARacconut1Admin
+
+-- AKIAFAKEACCESSKEYWNT - Status: Active - CreateDate: 2026-08-06T19:00:06+00:00
+{
+    "UserName": "s-test-app-reports",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-10-26T00:00:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+-- AKIAFAKEACCESSKEYDYV - Status: Inactive - CreateDate: 2026-02-13T18:25:41+00:00
+{
+    "UserName": "s-test-app-reports",
+    "AccessKeyLastUsed": {
+        "LastUsedDate": "2026-08-05T23:02:00+00:00",
+        "ServiceName": "s3",
+        "Region": "us-east-1"
+    }
+}
+
+..Active key:   1
+..Inactive key: 1
+
+$
+$
+$
+$
+$
+

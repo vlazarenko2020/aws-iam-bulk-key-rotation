@@ -1,0 +1,4 @@
+# -- CURRENT TEST
+s-test-app-backup|ARacconut1Admin
+s-test-app-reports|ARacconut1Admin
+# -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)

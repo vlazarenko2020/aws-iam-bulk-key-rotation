@@ -1,0 +1,7 @@
+# -- CURRENT FILE-TRANSFER-DEV
+s-sftp-transfer-dev|ARacconut2Admin
+s-rclone-sync-dev|ARacconut2Admin
+s-veeam-backup-dev|ARacconut2Admin
+s-s3-lifecycle-dev|ARacconut2Admin
+s-logstash-shipper-dev|ARacconut2Admin
+# -- END (INDICATES THAT NO MORE LINES IN THIS FILE. KEEP THIS LINE HERE)
